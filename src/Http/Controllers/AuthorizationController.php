@@ -43,6 +43,7 @@ class AuthorizationController
     {
         $this->server = $server;
         $this->response = $response;
+
     }
 
     /**

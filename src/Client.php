@@ -2,10 +2,11 @@
 
 namespace Laravel\Passport;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\Model as Model;
 
-class Client extends Model
-{
+
+class Client extends Model {
+
     /**
      * The database table used by the model.
      *
@@ -36,8 +37,8 @@ class Client extends Model
      */
     protected $casts = [
         'personal_access_client' => 'bool',
-        'password_client' => 'bool',
-        'revoked' => 'bool',
+        'password_client'        => 'bool',
+        'revoked'                => 'bool',
     ];
 
     /**

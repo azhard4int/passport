@@ -87,6 +87,7 @@ class TokenGuard
     public function user(Request $request)
     {
         if ($request->bearerToken()) {
+
             return $this->authenticateViaBearerToken($request);
         } elseif ($request->cookie(Passport::cookie())) {
             return $this->authenticateViaCookie($request);
@@ -135,7 +136,6 @@ class TokenGuard
             if ($this->clients->revoked($clientId)) {
                 return;
             }
-
             return $token ? $user->withAccessToken($token) : null;
         } catch (OAuthServerException $e) {
             return Container::getInstance()->make(
