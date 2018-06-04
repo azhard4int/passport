@@ -63,10 +63,11 @@ class ClientController
         $this->validation->make($request->all(), [
             'name' => 'required|max:255',
             'redirect' => 'required|url',
+            'image' =>'required'
         ])->validate();
 
         return $this->clients->create(
-            $request->user()->getKey(), $request->name, $request->redirect
+            $request->user()->getKey(), $request->name, $request->redirect,false,false,$request->image,$request->fileName
         )->makeVisible('secret');
     }
 
@@ -86,11 +87,12 @@ class ClientController
         $this->validation->make($request->all(), [
             'name' => 'required|max:255',
             'redirect' => 'required|url',
+            'image' =>'required'
         ])->validate();
 
         return $this->clients->update(
             $request->user()->clients->find($clientId),
-            $request->name, $request->redirect
+            $request->name, $request->redirect,$request->image,$request->fileName
         );
     }
 

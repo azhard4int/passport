@@ -37,7 +37,7 @@ class ClientRepository
     public function forUser($userId)
     {
         return Client::where('user_id', $userId)
-                        ->orderBy('name', 'desc')->get();
+            ->orderBy('name', 'desc')->get();
     }
 
     /**
@@ -77,7 +77,7 @@ class ClientRepository
      * @param  bool  $password
      * @return Client
      */
-    public function create($userId, $name, $redirect, $personalAccess = false, $password = false)
+    public function create($userId, $name, $redirect, $personalAccess = false, $password = false , $image = null , $imageName = null)
     {
         $client = (new Client)->forceFill([
             'user_id' => $userId,
@@ -87,6 +87,8 @@ class ClientRepository
             'personal_access_client' => $personalAccess,
             'password_client' => $password,
             'revoked' => false,
+            'image'   => $image,
+            'filename' => $imageName
         ]);
 
         $client->save();
@@ -128,10 +130,10 @@ class ClientRepository
      * @param  string  $redirect
      * @return Client
      */
-    public function update(Client $client, $name, $redirect)
+    public function update(Client $client, $name, $redirect, $image = null , $imageName = null)
     {
         $client->forceFill([
-            'name' => $name, 'redirect' => $redirect,
+            'name' => $name, 'redirect' => $redirect, 'image' => $image , 'filename' => $imageName
         ])->save();
 
         return $client;
@@ -163,7 +165,7 @@ class ClientRepository
         print_r(Client::where('_id', $id)
             ->where('revoked', true)->exists());
         return Client::where('_id', $id)
-                ->where('revoked', true)->exists();
+            ->where('revoked', true)->exists();
     }
 
     /**
